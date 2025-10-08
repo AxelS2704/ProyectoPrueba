@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consejos | Página Sencilla</title>
+    <!-- Carga de Tailwind CSS para un diseño moderno y responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configuración de fuente y estilos personalizados si son necesarios */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <div id="app-container" class="w-full max-w-2xl bg-white shadow-xl rounded-xl p-6 md:p-10 border border-gray-100">
+
+        <!-- Título principal -->
+        <h1 class="text-4xl font-extrabold text-center text-indigo-700 mb-6">
+            ✨ Consejos del Día
+        </h1>
+        <p class="text-center text-gray-500 mb-8">
+            Haz clic en un botón para revelar un consejo diferente.
+        </p>
+
+        <!-- Contenedor de Botones -->
+        <div id="button-container" class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4 mb-10">
+            <button id="btn-0" class="advice-btn bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">
+                Ver Consejo 1
+            </button>
+            <button id="btn-1" class="advice-btn bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">
+                Ver Consejo 2
+            </button>
+            <button id="btn-2" class="advice-btn bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">
+                Ver Consejo 3
+            </button>
+        </div>
+
+        <!-- Contenedor del Consejo (Se actualiza con JS) -->
+        <div id="advice-display" class="bg-indigo-50 border border-indigo-200 p-6 rounded-xl text-center min-h-[150px] flex flex-col justify-center transition-all duration-300">
+            <p class="text-xl text-indigo-700 font-medium">¡Selecciona un consejo!</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Simulando el archivo data.json: Los consejos están definidos aquí en una estructura de datos.
+        const consejosData = [
+            {
+                titulo: "La Regla de los Dos Minutos",
+                descripcion: "Si una tarea toma menos de dos minutos, hazla inmediatamente. Esto evita la acumulación de pequeñas tareas y mantiene tu flujo de trabajo despejado.",
+                emoji: "⏰"
+            },
+            {
+                titulo: "Hidratación Constante para la Mente",
+                descripcion: "Beber suficiente agua mejora drásticamente la concentración, el estado de ánimo y los niveles de energía. Mantén una botella de agua cerca en todo momento.",
+                emoji: "💧"
+            },
+            {
+                titulo: "Desconexión Digital Programada",
+                descripcion: "Programa un tiempo específico cada día (por ejemplo, 30 minutos antes de dormir) para desconectarte de pantallas y notificaciones. Esto reduce el estrés y mejora la calidad del sueño.",
+                emoji: "📵"
+            }
+        ];
+
+        // Referencia al contenedor donde se mostrará el consejo
+        const adviceDisplay = document.getElementById('advice-display');
+        // Referencia a todos los botones con la clase 'advice-btn'
+        const buttons = document.querySelectorAll('.advice-btn');
+
+        /**
+         * Función para mostrar un consejo en el contenedor.
+         * @param {number} index El índice del consejo en el array consejosData.
+         */
+        function displayAdvice(index) {
+            const consejo = consejosData[index];
+            
+            // Crea el contenido HTML con el título, emoji y descripción
+            const contentHTML = `
+                <div class="text-5xl mb-4 animate-bounce-once">${consejo.emoji}</div>
+                <h2 class="text-2xl font-bold text-indigo-800 mb-2">${consejo.titulo}</h2>
+                <p class="text-lg text-gray-700">${consejo.descripcion}</p>
+            `;
+
+            // Actualiza el contenido del contenedor
+            adviceDisplay.innerHTML = contentHTML;
+
+            // Opcional: añade una animación de rebote simple al emoji
+            const emojiElement = adviceDisplay.querySelector('.animate-bounce-once');
+            if (emojiElement) {
+                emojiElement.style.animation = 'none'; // Resetea la animación
+                void emojiElement.offsetHeight; // Forzar reflow
+                emojiElement.style.animation = 'bounce 0.5s ease-in-out 1'; // Aplica la animación
+            }
+        }
+        
+        // Define la animación de rebote en el CSS del JS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+
+        // Asigna el evento click a cada botón
+        buttons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                // Llama a la función para mostrar el consejo correspondiente al índice del botón (0, 1, 2)
+                displayAdvice(index);
+                
+                // Efecto visual: marca el botón activo
+                buttons.forEach(btn => btn.classList.remove('bg-indigo-700', 'hover:bg-indigo-700'));
+                button.classList.add('bg-indigo-700', 'hover:bg-indigo-700');
+            });
+        });
+
+        // Muestra el primer consejo al cargar la página por defecto y marca el primer botón
+        window.onload = () => {
+             displayAdvice(0);
+             buttons[0].classList.add('bg-indigo-700', 'hover:bg-indigo-700');
+        };
+
+    </script>
+</body>
+</html>
