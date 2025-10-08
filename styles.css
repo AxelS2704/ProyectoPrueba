@@ -1,0 +1,231 @@
+/* Archivo CSS para EcoTips */
+
+/* Variables CSS para una fácil modificación de colores */
+:root {
+    --color-primary: #4a6b4a; /* Verde oscuro para logo y acentos */
+    --color-text-dark: #333333; /* Color principal del texto */
+    --color-text-light: #666666; /* Texto secundario/descripciones */
+    --color-background-light: #f9f9f9; /* Fondo muy ligero si se necesitara */
+    --color-card-border: #eeeeee; /* Borde suave para las tarjetas */
+}
+
+/* Estilos globales para la tipografía y el reseteo básico */
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--color-text-dark);
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* Fondo blanco */
+    line-height: 1.6;
+}
+
+/* Contenedor principal para centrar el contenido */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Estilos del encabezado (Header) */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo {
+    font-weight: 700; /* Semi-negrita o negrita para el logo */
+    font-size: 24px;
+    text-decoration: none;
+    color: var(--color-text-dark);
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    color: var(--color-primary);
+    margin-right: 8px;
+    font-size: 28px;
+}
+
+/* Estilos de la navegación (Navbar) */
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-text-dark);
+    margin-left: 30px;
+    font-weight: 500; /* Peso medio para los enlaces */
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--color-primary);
+}
+
+/* Ocultar la navegación en móvil y mostrar el menú hamburguesa si fuera necesario */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Simplificamos ocultando la navegación para el diseño propuesto */
+    }
+}
+
+/* Estilos de la sección Hero (Imagen principal) */
+.hero {
+    position: relative;
+    height: 450px; /* Altura fija para el área del hero */
+    margin: 40px 0; /* Margen vertical */
+    border-radius: 12px; /* Esquinas redondeadas como en el diseño */
+    overflow: hidden; /* Asegura que la imagen no se salga del borde redondeado */
+}
+
+/* NUEVO Contenedor para la imagen y el texto (wrapper) */
+.hero-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Estilos para la imagen local dentro del Hero */
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra todo el contenedor sin distorsionarse */
+    border-radius: 12px;
+}
+
+/* Overlay oscuro, ahora como un elemento separado, sobre la imagen */
+.hero-image-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); /* Overlay negro con 30% de opacidad */
+    border-radius: 12px;
+    z-index: 5; /* Coloca el overlay entre la imagen (z-index 1, por defecto) y el texto (z-index 10) */
+}
+
+.hero-text {
+    position: absolute; /* Coloca el texto encima del overlay */
+    color: #ffffff;
+    font-size: 48px;
+    font-weight: 700;
+    z-index: 10;
+    padding: 0 20px;
+}
+
+/* Media query para hacer el texto del hero responsivo */
+@media (max-width: 768px) {
+    .hero-text {
+        font-size: 32px;
+    }
+    .hero {
+        height: 300px;
+        margin: 20px 0;
+    }
+}
+
+/* Estilos de la sección de Consejos */
+.section-title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    margin-top: 60px;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding-bottom: 80px;
+}
+
+/* Estilos de las tarjetas individuales */
+.card {
+    background-color: #ffffff;
+    border: 1px solid var(--color-card-border);
+    border-radius: 8px;
+    padding: 25px;
+    transition: box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05); /* Sombra suave al pasar el ratón */
+}
+
+.card-icon {
+    font-size: 24px;
+    color: var(--color-primary);
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+}
+
+.card-description {
+    font-size: 16px;
+    color: var(--color-text-light);
+}
+
+/* Estilos del pie de página (Footer) */
+.footer {
+    border-top: 1px solid var(--color-card-border);
+    padding: 40px 0;
+    text-align: center;
+}
+
+.social-icons a {
+    color: var(--color-text-light);
+    font-size: 20px;
+    margin: 0 15px;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: var(--color-primary);
+}
+
+.copyright {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--color-text-light);
+}
+
+/* Asegura que el contenedor 'hero' sea el punto de referencia para los elementos internos */
+.hero {
+    position: relative; 
+    height: 450px; /* La altura deseada para la sección */
+    overflow: hidden;
+}
+
+/* Estilos para que la imagen actúe como fondo */
+.hero-image-background {
+    position: absolute; /* Posiciona la imagen respecto al contenedor 'hero' */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+    z-index: 1;
+    border-radius: 12px;
+}
+
+/* Estilos para el texto que va encima de la imagen */
+.hero-text {
+    position: absolute; /* Posiciona el texto respecto al contenedor 'hero' */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el texto perfectamente */
+    z-index: 10; /* Asegura que esté encima de la imagen y del posible overlay */
+    color: #ffffff; /* Color blanco para contraste */
+}
+
+¿Te gustaría que te genere el archivo `styles.css` con estas correcciones o prefieres ajustarlo tú mismo?
